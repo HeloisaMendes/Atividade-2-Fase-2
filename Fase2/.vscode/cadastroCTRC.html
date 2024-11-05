@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emissão de CTRC</title>
+    <link rel="stylesheet" href="telas.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Emissão de CTRC</h2>
+        <form>
+            <label>Número do CTRC:</label>
+            <input type="text" name="numeroCTRC">
+
+            <h3>Remetente</h3>
+            <input type="text" name="nomeRemetente" placeholder="Nome/Empresa">
+            <input type="text" name="cpfCnpjRemetente" placeholder="CPF/CNPJ">
+
+            <h3>Destinatário</h3>
+            <input type="text" name="nomeDestinatario" placeholder="Nome/Empresa">
+            <input type="text" name="cpfCnpjDestinatario" placeholder="CPF/CNPJ">
+
+            <label>Preço da Mercadoria:</label>
+            <input type="text" name="precoMercadoria">
+
+            <label>Valor do ICMS:</label>
+            <input type="text" name="valorICMS">
+
+            <label>Valor do Pedágio:</label>
+            <input type="text" name="valorPedagio">
+
+            <button type="submit">Emitir CTRC</button>
+        </form>
+    </div>
+</body>
+</html>

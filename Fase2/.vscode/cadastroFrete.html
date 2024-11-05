@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Fretes</title>
+    <link rel="stylesheet" href="telas.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastro de Fretes</h2>
+        <form>
+
+            <label>Quem paga o frete?</label>
+            <select name="pagador">
+                <option value="remetente">Remetente</option>
+                <option value="destinatario">Destinatário</option>
+            </select>
+
+            <label>Tipo de Cálculo do Frete:</label>
+            <select name="tipoCalculo">
+                <option value="peso">Por Peso</option>
+                <option value="valor">Por Valor</option>
+            </select>
+
+            <label>Peso da Mercadoria (KG):</label>
+            <input type="text" name="peso">
+
+            <label>Valor da Mercadoria:</label>
+            <input type="text" name="valorMercadoria">
+
+            <label>Valor total:</label>
+            <input type="text" name="valorTotal">
+
+            <label>Valor do Pedágio:</label>
+            <input type="text" name="pedagio">
+
+            <label>Data do frete:</label>
+            <input type="date" name="data">
+
+            <label>ICMS:</label>
+            <input type="text" name="icms">
+
+            <label>Estado de Origem:</label>
+            <select id="cmbEstadoOrigem" name="estadoOrigem" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <label>Cidade de Origem:</label>
+            <select id="cmbCidadeOrigem" name="cidadeOrigem" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <label>Estado de Destino:</label>
+            <select id="cmbEstadoDestino" name="estadoDestino" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <label>Cidade de Destino:</label>
+            <select id="cmbCidadeDestino" name="cidadeDestino" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <label>Destinatário:</label>
+            <select id="cmbDestinario" name="destinatario" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <label>Remetente:</label>
+            <select id="cmbRemetente" name="remetente" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <label>Funcionário:</label>
+            <select id="cmbFuncionario" name="funcionario" class="form-select">
+                <option value="">Selecione</option>
+            </select>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>
