@@ -46,6 +46,10 @@ input, select, button {
     border-radius: 4px;
 }
 
+span i {
+    background-color: red;
+}
+
 button {
     background-color: #4CAF50;
     color: white;
