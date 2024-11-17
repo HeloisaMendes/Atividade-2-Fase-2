@@ -21,6 +21,8 @@ public class ESTADO {
 
     @Column(name = "icms_outro_uf", nullable = false)
     private Double icmsOutroUf;
+    
+    
 
     // Getters e Setters
     public Long getId() {
