@@ -42,10 +42,6 @@ public class CidadeService {
     }
     
     //Pesquisa cidade pelo estado
-    public List<CIDADE> findByEstadoId(Long idEstado) {
-        return cidadeDao.findByEstadoId(idEstado);
-    }
-    
     public Optional<CIDADE> buscarCidade (Long idEstado, String nomeCid){
     	return cidadeDao.findByEstadoIdAndNomeCid(idEstado, nomeCid);
     }

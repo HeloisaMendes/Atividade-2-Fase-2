@@ -14,8 +14,6 @@ public interface CidadeDao extends CrudRepository<CIDADE, Long> {
 
 	Optional<CIDADE> findByNomeCid(String nome);
     
-	//Pesquisa cidade pelo estado
-	List<CIDADE> findByEstadoId(Long idEstado);
-	
+	//Pesquisa cidade pelo estado	
 	Optional<CIDADE> findByEstadoIdAndNomeCid(Long idEstado, String nomeCid);
 }

@@ -15,57 +15,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.modelo.CIDADE;
-import com.example.demo.service.CidadeService;
+import com.example.demo.modelo.CLIENTE;
+import com.example.demo.service.ClienteService;
 
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/cidade")
-public class CidadeController {
+@RequestMapping("/cliente")
+public class ClienteController {
 	
 	@Autowired
-    private CidadeService cidadeService;
+    private ClienteService clienteService;
 
-    // Inserir cidade
+    // Inserir cliente
     @PostMapping(path = "/inserir", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CIDADE insertCidade(@RequestBody CIDADE cidade) {
-        return cidadeService.save(cidade);
+    public CLIENTE insertCliente(@RequestBody CLIENTE cliente) {
+        return clienteService.save(cliente);
     }
 
-    // Atualizar cidade
+    // Atualizar cliente
     @PutMapping(path = "/atualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CIDADE updateCidade(@RequestBody CIDADE cidade) {
-        return cidadeService.save(cidade);
+    public CLIENTE updateCliente(@RequestBody CLIENTE cliente) {
+        return clienteService.save(cliente);
     }
 
     // Deletar cidade
     @DeleteMapping("/excluir/{id}")
     public void deleteCidade(@PathVariable Long id) {
-        cidadeService.delete(id);
+        clienteService.delete(id);
     }
 
-    // Pesquisar Todas as cidades
+    // Pesquisar Todos os clientes
     @GetMapping("/consultaTodos")
-    public List<CIDADE> getAllCidade() {
-        return (List<CIDADE>) cidadeService.findAll();
+    public List<CLIENTE> getAllCliente() {
+        return (List<CLIENTE>) clienteService.findAll();
     }
 
-    // Pesquisar cidade por id
+    // Pesquisar cliente por id
     @GetMapping("/consultaPorId/{id}")
-    public Optional<CIDADE> getCidadeById(@PathVariable Long id) {
-        return cidadeService.findById(id);
+    public Optional<CLIENTE> getClienteById(@PathVariable Long id) {
+        return clienteService.findById(id);
     }
     
-    // Pesquisar cidade por nome
-    @GetMapping("/consultaPorNome/{nomeCid}")
-    public Optional<CIDADE> getCidadeByNomeCid(@PathVariable String nomeCid) {
-        return cidadeService.findByNomeCid(nomeCid);
-    }
-    
-    // Pesquisar cidade pelo estado
-    @GetMapping("/estado/{idEstado}/cidade/{nomeCid}") 
-    public Optional<CIDADE> buscarCidade(@PathVariable Long idEstado, @PathVariable String nomeCid) {
-    	return cidadeService.buscarCidade(idEstado, nomeCid);
+    // Pesquisar cliente por nome
+    @GetMapping("/consultaPorNome/{nomeCli}")
+    public Optional<CLIENTE> getClienteByNomeCid(@PathVariable String nomeCli) {
+        return clienteService.findByNomeCli(nomeCli);
     }
 }
