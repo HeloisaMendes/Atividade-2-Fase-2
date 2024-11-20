@@ -16,51 +16,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.modelo.CLIENTE;
-import com.example.demo.service.ClienteService;
+import com.example.demo.service.PessoaFisicaService;
+import com.example.demo.service.PessoaJuridicaService;
+import com.example.demo.modelo.PESSOA_JURIDICA;
 
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/cliente")
-public class ClienteController {
+@RequestMapping("/pessoaJuridica")
+public class PessoaJuridicaController {
 	
 	@Autowired
-    private ClienteService clienteService;
+    private PessoaJuridicaService pjService;
 
     // Inserir cliente
     @PostMapping(path = "/inserir", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CLIENTE insertCliente(@RequestBody CLIENTE cliente) {
-        return clienteService.save(cliente);
+    public PESSOA_JURIDICA insertPessoaJuridica(@RequestBody PESSOA_JURIDICA pj) {
+        return pjService.save(pj);
     }
+    
 
     // Atualizar cliente
     @PutMapping(path = "/atualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CLIENTE updateCliente(@RequestBody CLIENTE cliente) {
-        return clienteService.save(cliente);
+    public PESSOA_JURIDICA updatePessoaJuridica(@RequestBody PESSOA_JURIDICA pj) {
+        return pjService.save(pj);
     }
 
-    // Deletar cidade
+    // Deletar cliente
     @DeleteMapping("/excluir/{id}")
-    public void deleteCidade(@PathVariable Long id) {
-        clienteService.delete(id);
+    public void deletePessoaJuridica(@PathVariable Long id) {
+    	pjService.delete(id);
     }
 
     // Pesquisar Todos os clientes
     @GetMapping("/consultaTodos")
-    public List<CLIENTE> getAllCliente() {
-        return (List<CLIENTE>) clienteService.findAll();
+    public List<PESSOA_JURIDICA> getAllPessoaJuridica() {
+        return (List<PESSOA_JURIDICA>) pjService.findAll();
     }
 
     // Pesquisar cliente por id
     @GetMapping("/consultaPorId/{id}")
-    public Optional<CLIENTE> getClienteById(@PathVariable Long id) {
-        return clienteService.findById(id);
+    public Optional<PESSOA_JURIDICA> getPessoaJuridicaById(@PathVariable Long id) {
+        return pjService.findById(id);
+    }
+    
+    // Pesquisar cliente por CNPJ
+    @GetMapping("/consultaPorCNPJ/{cnpj}")
+    public Optional<PESSOA_JURIDICA> getPessoaJuridicaByCNPJ(@PathVariable String cnpj) {
+        return pjService.findByCnpj(cnpj);
     }
     
     // Pesquisar cliente por nome
-    //@GetMapping("/consultaPorNome/{nomeCli}")
-    /*public Optional<CLIENTE> getClienteByNomeCid(@PathVariable String nomeCli) {
-        return clienteService.findByNomeCli(nomeCli);
+    @GetMapping("/consultaPorNome/{nomeCli}")
+    public Optional<PESSOA_JURIDICA> getPessoaJuridicaByNomeCid(@PathVariable String nomeCli) {
+        return pjService.findByNomeCli(nomeCli);
     }
-    */
 }

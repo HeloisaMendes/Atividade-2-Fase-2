@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // Estratégia de herança JOINED
 @Table(name = "cliente")
 public class CLIENTE {
 

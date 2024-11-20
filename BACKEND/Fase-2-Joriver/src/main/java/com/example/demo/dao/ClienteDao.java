@@ -12,6 +12,5 @@ import com.example.demo.modelo.CLIENTE;
 @Repository
 public interface ClienteDao extends CrudRepository<CLIENTE, Long> {
 
-	Optional<CLIENTE> findByNomeCli(String nome);
     
 }

@@ -3,6 +3,12 @@ let pjId = null
 
 let estado = null;
 
+let nomeRepresentante = null;
+let enderecoRepresentante = null;
+let telefoneRepresentante = null;
+let remetenteDestinatarioRepresentante = null;
+let cpfRepresentate = null;
+
 // Esse método serve para adicionar mais de um número de telefone no campo telefone
 const inputTelefoneEmpresa = document.getElementById("telefoneEmpresa");
 const tagifyTelefone = new Tagify(inputTelefoneEmpresa, {
@@ -109,6 +115,13 @@ function pesquisarCPFRepresentante(cpfRepresentanteFormatado){
                 
                 // Se o CPF existir, ele pode cadastrar uma Pessoa Jurídica
                 representanteId = data.id;
+
+                nomeRepresentante = data.nomeCli;
+                enderecoRepresentante = data.endereco;
+                telefoneRepresentante = data.telefone;
+                remetenteDestinatarioRepresentante = data.remetenteDestinatario;
+                cpfRepresentate = data.cpf;
+
                 alert("Id do representante: " + representanteId);
                 alert("Insira o CNPJ");
                 
@@ -201,19 +214,26 @@ document.getElementById('formularioPJ').addEventListener('submit', function(even
     const enderecoEmpresa = document.getElementById('enderecoEmpresa').value;
     const telefoneEmpresa = document.getElementById('telefoneEmpresa').value;
 
-    // Verifica se todos os campos estão preenchidos
-    if (cpfRepresentante && cnpj && dataInscPJ && remetenteDestinatarioPJ && razaoSocial && inscEstadual && nomeEmpresa && enderecoEmpresa && telefoneEmpresa) {
+    const cnpjSemFormatacao = cnpj.replace(/\D/g, ''); // Remove pontos e hífen
 
-        if(isUpdating != null){
+    // Verifica se todos os campos estão preenchidos
+    if (cnpjSemFormatacao && dataInscPJ && remetenteDestinatarioPJ && razaoSocial && inscEstadual && nomeEmpresa && enderecoEmpresa && telefoneEmpresa) {
+
+        if(estado != null){
 
             //testo se a variavel update está false ou true 
-            if (isUpdating) {
+            if (estado) {
                 // Se estamos atualizando, chama a função de atualização
-                atualizarPJ(cpfRepresentante,cnpj, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, enderecoEmpresa, telefoneEmpresa, representanteId);
+                atualizarPJ(nomeRepresentante, enderecoRepresentante, telefoneRepresentante,
+                cpfRepresentate, cnpjSemFormatacao, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, 
+                enderecoEmpresa, telefoneEmpresa, representanteId);
+
 
             } else {
                 // Se não estamos atualizando, chama a função de adição
-                adicionarPJ(cpfRepresentante,cnpj, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, enderecoEmpresa, telefoneEmpresa, representanteId);
+                adicionarPJ(nomeRepresentante, enderecoRepresentante, telefoneRepresentante,
+                cpfRepresentate, cnpjSemFormatacao, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, 
+                enderecoEmpresa, telefoneEmpresa, representanteId);
             }
 
         } else {
@@ -230,18 +250,24 @@ document.getElementById('formularioPJ').addEventListener('submit', function(even
 
 
 // Função para adicionar um novo cliente
-function adicionarPJ(cpfRepresentante,cnpj, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, enderecoEmpresa, telefoneEmpresa, representanteId) {
+function adicionarPJ(nomeRepresentante, enderecoRepresentante, telefoneRepresentante,
+    cpfRepresentate, cnpjSemFormatacao, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, 
+    enderecoEmpresa, telefoneEmpresa, representanteId) {
     $.ajax({
         url: "http://localhost:" + porta + "/pessoaJuridica/inserir",
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            cnpj: cnpj,
-            dataInsc: dataInscPJ,
+            nomeCli: nomeRepresentante,
+            endereco: enderecoRepresentante,
+            telefone: telefoneRepresentante,
+            cpf: cpfRepresentate,
             remetenteDestinatario: remetenteDestinatarioPJ,
-            nomeEmpresa: nomeEmpresa,
+            cnpj: cnpjSemFormatacao,
+            dataInsc: dataInscPJ,
             razaoSocial: razaoSocial,
             inscEstadual: inscEstadual,
+            nomeEmpresa: nomeEmpresa,
             enderecoEmpresa: enderecoEmpresa,
             telefoneEmpresa: telefoneEmpresa,
             representante: {id: representanteId}
@@ -265,28 +291,89 @@ function adicionarPJ(cpfRepresentante,cnpj, dataInscPJ, remetenteDestinatarioPJ,
 
 
 // Função para atualizar os dados do cliente
-function atualizarPJ(cpfRepresentante,cnpj, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, enderecoEmpresa, telefoneEmpresa, representanteId) {
+function atualizarPJ(nomeRepresentante, enderecoRepresentante, telefoneRepresentante,
+    cpfRepresentate, cnpjSemFormatacao, dataInscPJ, remetenteDestinatarioPJ, razaoSocial, inscEstadual, nomeEmpresa, 
+    enderecoEmpresa, telefoneEmpresa, representanteId) {
     $.ajax({
-        url: "http://localhost:" + porta + "/pessoaFisica/atualizar", 
+        url: "http://localhost:" + porta + "/pessoaJuridica/atualizar", 
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify({
-            id: clienteId,
-            nomeCli: nome,
-            dataInsc: dataInsc,
-            endereco: endereco,
-            telefone: telefone,
-            remetenteDestinatario: remetenteDestinatario,
-            cpf: cpf
+            id: pjId,
+            nomeCli: nomeRepresentante,
+            endereco: enderecoRepresentante,
+            telefone: telefoneRepresentante,
+            cpf: cpfRepresentate,
+            remetenteDestinatario: remetenteDestinatarioPJ,
+            cnpj: cnpjSemFormatacao,
+            dataInsc: dataInscPJ,
+            razaoSocial: razaoSocial,
+            inscEstadual: inscEstadual,
+            nomeEmpresa: nomeEmpresa,
+            enderecoEmpresa: enderecoEmpresa,
+            telefoneEmpresa: telefoneEmpresa,
+            representante: {id: representanteId}
         }),
         success: function() {
             alert("Dados do cliente atualizados com sucesso!");
-            limpaTela()
+            limpaTelaPJ()
         },
         error: function() {
             alert("Erro ao atualizar os dados do cliente.");
-            limpaTela()
+            limpaTelaPJ()
         }
     });
 }
 
+function excluirPJ() {
+
+    if (pjId != null) { 
+
+        // Quer dizer que o cliente já foi pesquisado
+        $.ajax({
+            url :  "http://localhost:" + porta + "/pessoaJuridica/excluir/" + pjId,
+            type: "DELETE",
+    
+    
+            success: function(msg){
+        
+            alert("Cliente excluído com sucesso!")
+        
+                limpaTelaPJ();
+                pjId = null;
+                
+            },
+            error: function(msg) {
+                alert("Erro de exclusão...")
+            }
+            
+        });
+        
+    } else {
+        alert("Você deve pesquisar o CPF e o CNPJ para depois excluir");
+        const cpfInputRepresentante = document.getElementById("cpfRepresentante");
+        const cnpjInput = document.getElementById("cnpj");
+        cpfInputRepresentante.focus();
+        cnpjInput.focus();
+    }
+    
+}
+
+function limpaTelaPJ() {
+
+    // Define todos os campos de entrada como vazios
+    document.getElementById("cmbTipoCliente").selectedIndex = 1;
+    document.getElementById('cpfRepresentante').value = '';
+    document.getElementById('cnpj').value = '';
+    document.getElementById('dataInscPJ').value = '';
+    document.getElementById("cmbRemetenteDestinatarioPJ").selectedIndex = 0;
+    document.getElementById('razaoSocial').value = '';
+    document.getElementById('inscricaoEstadual').value = '';
+    document.getElementById('nomeEmpresa').value = '';
+    document.getElementById('enderecoEmpresa').value = '';
+    document.getElementById('telefoneEmpresa').value = '';
+    
+    //define isUpdating como null novamente
+    estado = null;
+
+}

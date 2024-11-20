@@ -3,11 +3,8 @@ package com.example.demo.modelo;
 import jakarta.persistence.*;
 
 @Entity
-public class PESSOA_JURIDICA{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "pessoa_juridica")
+public class PESSOA_JURIDICA extends CLIENTE {
 
     @Column(name = "nome_empresa", nullable = false)
     private String nomeEmpresa;
@@ -31,19 +28,7 @@ public class PESSOA_JURIDICA{
     @JoinColumn(name = "cod_representante")
     private PESSOA_FISICA representante;
 
-    @ManyToOne
-    @JoinColumn(name = "cod_cli", nullable = false)
-    private CLIENTE cliente;
-
     // Getters e Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNomeEmpresa() {
         return nomeEmpresa;
     }
@@ -98,13 +83,5 @@ public class PESSOA_JURIDICA{
 
     public void setRepresentante(PESSOA_FISICA representante) {
         this.representante = representante;
-    }
-
-    public CLIENTE getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(CLIENTE cliente) {
-        this.cliente = cliente;
     }
 }

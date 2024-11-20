@@ -16,51 +16,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.modelo.CLIENTE;
-import com.example.demo.service.ClienteService;
+import com.example.demo.service.PessoaFisicaService;
+import com.example.demo.modelo.PESSOA_FISICA;
 
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/cliente")
-public class ClienteController {
+@RequestMapping("/pessoaFisica")
+public class PessoaFisicaController {
 	
 	@Autowired
-    private ClienteService clienteService;
+    private PessoaFisicaService pfService;
 
     // Inserir cliente
     @PostMapping(path = "/inserir", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CLIENTE insertCliente(@RequestBody CLIENTE cliente) {
-        return clienteService.save(cliente);
+    public PESSOA_FISICA insertPessoaFisica(@RequestBody PESSOA_FISICA pf) {
+        return pfService.save(pf);
     }
+    
 
     // Atualizar cliente
     @PutMapping(path = "/atualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public CLIENTE updateCliente(@RequestBody CLIENTE cliente) {
-        return clienteService.save(cliente);
+    public PESSOA_FISICA updatePessoaFisica(@RequestBody PESSOA_FISICA pf) {
+        return pfService.save(pf);
     }
 
-    // Deletar cidade
+    // Deletar cliente
     @DeleteMapping("/excluir/{id}")
-    public void deleteCidade(@PathVariable Long id) {
-        clienteService.delete(id);
+    public void deletePessoa_Fisica(@PathVariable Long id) {
+       pfService.delete(id);
     }
 
     // Pesquisar Todos os clientes
     @GetMapping("/consultaTodos")
-    public List<CLIENTE> getAllCliente() {
-        return (List<CLIENTE>) clienteService.findAll();
+    public List<PESSOA_FISICA> getAllPessoaFisica() {
+        return (List<PESSOA_FISICA>) pfService.findAll();
     }
 
     // Pesquisar cliente por id
     @GetMapping("/consultaPorId/{id}")
-    public Optional<CLIENTE> getClienteById(@PathVariable Long id) {
-        return clienteService.findById(id);
+    public Optional<PESSOA_FISICA> getPessoaFisicaById(@PathVariable Long id) {
+        return pfService.findById(id);
+    }
+    
+    // Pesquisar cliente por CPF
+    @GetMapping("/consultaPorCPF/{cpf}")
+    public Optional<PESSOA_FISICA> getPessoaFisicaByCPF(@PathVariable String cpf) {
+        return pfService.findByCpf(cpf);
     }
     
     // Pesquisar cliente por nome
-    //@GetMapping("/consultaPorNome/{nomeCli}")
-    /*public Optional<CLIENTE> getClienteByNomeCid(@PathVariable String nomeCli) {
-        return clienteService.findByNomeCli(nomeCli);
+    @GetMapping("/consultaPorNome/{nomeCli}")
+    public Optional<PESSOA_FISICA> getPessoaFisicaByNomeCid(@PathVariable String nomeCli) {
+        return pfService.findByNomeCli(nomeCli);
     }
-    */
 }
