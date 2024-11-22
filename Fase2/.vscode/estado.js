@@ -76,8 +76,6 @@ function adicionar(uf, nome, icmsDentro, icmsFora) {
             //Preenche o id uf, quando um novo UF é criado
             estadoId = resposta.id
 
-            alert("criei um estado " + estadoId)
-
             alert("Novo estado adicionado com sucesso!");
 
             estadoId = null;
@@ -205,7 +203,7 @@ function carregaCmbEspecialidade() {
 
             if(Object.keys(msg).length === 0) {
 
-                alert("Sem Especialidades cadastradas");
+                alert("Sem especialidades cadastradas");
 
             } else {
 

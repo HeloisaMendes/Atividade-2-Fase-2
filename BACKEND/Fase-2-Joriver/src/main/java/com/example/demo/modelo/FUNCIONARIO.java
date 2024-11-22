@@ -5,14 +5,17 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "funcionario")
 public class FUNCIONARIO {
-
-    @Id
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "num_reg")
     private Long id;
 
     @Column(name = "nome_func", nullable = false)
     private String nomeFunc;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cidade", nullable = false) // Relaciona o funcionário a uma cidade
+    private CIDADE cidade;
 
     // Getters e Setters
     public Long getId() {
@@ -30,4 +33,13 @@ public class FUNCIONARIO {
     public void setNomeFunc(String nomeFunc) {
         this.nomeFunc = nomeFunc;
     }
+
+    public CIDADE getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(CIDADE cidade) {
+        this.cidade = cidade;
+    }
+
 }

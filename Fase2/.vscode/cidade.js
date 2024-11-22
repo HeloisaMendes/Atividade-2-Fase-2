@@ -8,8 +8,6 @@ let isUpdating = null;
 
 //Quando o documento abrir ele faz essa função
 $(document).ready(function() {
-
-    alert("Oi");
     
     // Carregar os estados quando a página estiver pronta
     carregaCmbEstado();
@@ -23,7 +21,6 @@ $(document).ready(function() {
        // Verificar se um estado foi escolhido
        if(idEstado) {
            // Execute uma ação com base no estado escolhido
-           alert("Estado selecionado: " + idEstado);
 
         } else {
            alert("Nenhum estado selecionado.");
@@ -99,7 +96,6 @@ document.getElementById('formulario').addEventListener('submit', function(event)
 
     // Obtém os valores dos campos do formulário
     const estado = document.getElementById('cmbEstado').value;
-    alert("Estado: " + estado);
     const nomeCidade = document.getElementById('nome').value;
     const pesoUnitario = document.getElementById('pesoUnitario').value;
     const valorUnitario = document.getElementById('valorUnitario').value;
@@ -148,12 +144,11 @@ function adicionar(estado, nomeCidade, pesoUnitario, valorUnitario) {
             //Preenche o id uf, quando um novo UF é criado
             cidadeId = resposta.id
 
-            alert("criei uma cidade " + cidadeId)
-
             alert("Nova cidade adicionada com sucesso!");
 
             cidadeId = null;
             limpaTela()
+            carregaCmbEstado()
         },
         error: function() {
             alert("Erro ao adicionar a nova cidade.");
@@ -165,7 +160,6 @@ function adicionar(estado, nomeCidade, pesoUnitario, valorUnitario) {
 
 // Função para atualizar os dados do estado
 function atualizar(estado, nomeCidade, pesoUnitario, valorUnitario) {
-    alert("Entrou no ATUALIZAR");
     $.ajax({
         url: "http://localhost:" + porta + "/cidade/atualizar", 
         type: 'PUT',
@@ -180,7 +174,7 @@ function atualizar(estado, nomeCidade, pesoUnitario, valorUnitario) {
         success: function() {
             alert("Dados da cidade atualizados com sucesso!");
             limpaTela()
-            carregaCmbEstado;
+            carregaCmbEstado()
         },
         error: function() {
             alert("Erro ao atualizar os dados da cidade.");
@@ -193,8 +187,6 @@ function atualizar(estado, nomeCidade, pesoUnitario, valorUnitario) {
 //Função para pesquisar uma cidade em determinado estado
 function pesquisarCidadePeloEstado(nomeCidade){
 
-    alert("Id estado:" + idEstado);
-    alert(nomeCidade);
     $.ajax({
         url: "http://localhost:" + porta + "/cidade/estado/" + idEstado + "/cidade/" + nomeCidade,
         type: 'GET', 
@@ -211,7 +203,6 @@ function pesquisarCidadePeloEstado(nomeCidade){
 
                 // Se a cidade existir, preencha os campos com os dados retornados
                 cidadeId = data.id;
-                alert("Cidade id: " + cidadeId);
                 $('#pesoUnitario').val(data.precoUnitPeso);
                 $('#valorUnitario').val(data.precoUnitValor);
 
@@ -240,6 +231,7 @@ function excluirCidade() {
             alert("Cidade excluída com sucesso!")
         
                 limpaTela();
+                carregaCmbEstado()
                 estadoId = null;
                 
             },

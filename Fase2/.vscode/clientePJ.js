@@ -83,7 +83,6 @@ document.getElementById('lupaCPF').addEventListener('click', function() {
         return;
     }
 
-    alert("CPF Representante formatado: " + cpfRepresentanteFormatado);
     pesquisarCPFRepresentante(cpfRepresentanteFormatado)
 
 });
@@ -91,8 +90,6 @@ document.getElementById('lupaCPF').addEventListener('click', function() {
 
 //Função para pesquisar pelo CPF
 function pesquisarCPFRepresentante(cpfRepresentanteFormatado){
-
-    alert("Entrou no pesquisar");
 
     $.ajax({
         url: "http://localhost:" + porta + "/pessoaFisica/consultaPorCPF/" + cpfRepresentanteFormatado,
@@ -122,7 +119,6 @@ function pesquisarCPFRepresentante(cpfRepresentanteFormatado){
                 remetenteDestinatarioRepresentante = data.remetenteDestinatario;
                 cpfRepresentate = data.cpf;
 
-                alert("Id do representante: " + representanteId);
                 alert("Insira o CNPJ");
                 
                 //Clicou na lupa
@@ -216,8 +212,10 @@ document.getElementById('formularioPJ').addEventListener('submit', function(even
 
     const cnpjSemFormatacao = cnpj.replace(/\D/g, ''); // Remove pontos e hífen
 
+    pesquisarCPFRepresentante(cpfRepresentante);
+
     // Verifica se todos os campos estão preenchidos
-    if (cnpjSemFormatacao && dataInscPJ && remetenteDestinatarioPJ && razaoSocial && inscEstadual && nomeEmpresa && enderecoEmpresa && telefoneEmpresa) {
+    if (cnpjSemFormatacao && dataInscPJ && remetenteDestinatarioPJ && razaoSocial && inscEstadual && nomeEmpresa && enderecoEmpresa && telefoneEmpresa && representanteId) {
 
         if(estado != null){
 

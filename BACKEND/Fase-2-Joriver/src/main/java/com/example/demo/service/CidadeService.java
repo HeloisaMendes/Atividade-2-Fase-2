@@ -46,4 +46,8 @@ public class CidadeService {
     	return cidadeDao.findByEstadoIdAndNomeCid(idEstado, nomeCid);
     }
     
+    // Método para buscar cidades por estado
+    public List<CIDADE> findCidadesByEstado(Long estadoId) {
+        return cidadeDao.findByEstadoId(estadoId);
+    }
 }

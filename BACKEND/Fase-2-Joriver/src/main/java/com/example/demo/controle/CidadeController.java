@@ -68,4 +68,10 @@ public class CidadeController {
     public Optional<CIDADE> buscarCidade(@PathVariable Long idEstado, @PathVariable String nomeCid) {
     	return cidadeService.buscarCidade(idEstado, nomeCid);
     }
+    
+    // Pesquisar todas as cidades de um estado específico
+    @GetMapping("/estado/{estadoId}")
+    public List<CIDADE> getCidadesByEstado(@PathVariable Long estadoId) {
+        return cidadeService.findCidadesByEstado(estadoId);
+    }
 }
